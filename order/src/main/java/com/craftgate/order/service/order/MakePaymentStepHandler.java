@@ -34,6 +34,20 @@ public class MakePaymentStepHandler implements OrderStepHandler {
 
     @Override
     public void process(Orders orders) {
+        CreatePaymentRequest request = getCreatePaymentRequest(orders);
+
+        PaymentResponse paymentResponse = craftgate.payment().createPayment(request);
+        log.info("Payment successfully completed with payment-id=" + paymentResponse.getId());
+
+        orders.setOrderStatus(OrderStatus.RECEIVED);
+        orderRepository.save(orders);
+    }
+
+    @Override
+    public void rollback(Orders orders) {
+    }
+
+    private CreatePaymentRequest getCreatePaymentRequest(Orders orders) {
         List<PaymentItem> items = new ArrayList<>();
 
         for (OrderItem orderItem : orders.getOrderItems()) {
@@ -62,15 +76,6 @@ public class MakePaymentStepHandler implements OrderStepHandler {
                         .build())
                 .items(items)
                 .build();
-
-        PaymentResponse paymentResponse = craftgate.payment().createPayment(request);
-        log.info("Payment successfully completed with payment-id=" + paymentResponse.getId());
-
-        orders.setOrderStatus(OrderStatus.RECEIVED);
-        orderRepository.save(orders);
-    }
-
-    @Override
-    public void rollback(Orders orders) {
+        return request;
     }
 }

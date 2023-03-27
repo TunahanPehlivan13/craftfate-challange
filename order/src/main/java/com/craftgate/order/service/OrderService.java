@@ -26,8 +26,9 @@ public class OrderService {
             } catch (PaymentValidationException pve) {
                 return pve.getStatusDto();
             } catch (Exception e) {
-                log.error("Failed to process {} for order-id={}", orders.getId());
+                log.error("Failed to process {} for order-id={}", orders.getId(), e);
                 startFailoverScenarios(orders, orderStepHandler);
+                return new StatusDto(true, "unknown error");
             }
         }
         return generateSuccessfulMessage("Order has been successfully created for order-id=" + orders.getId());

@@ -15,33 +15,33 @@ services:
 #      - '8080:8080'
 #    restart: unless-stopped
 
-#  order-db:
-#    image: mysql:8.0
-#    container_name: order-db
-#    environment:
-#      - MYSQL_ROOT_PASSWORD=pass
-#      - MYSQL_USERNAME=root
-#      - MYSQL_PASSWORD=pass
-#      - MYSQL_DATABASE=order
-#      - MYSQL_ROOT_HOST=%
-#    ports:
-#      - '3306:3306'
-#    volumes:
-#      - ./order/db:/docker-entrypoint-initdb.d
+  order-db:
+    image: mysql:8.0
+    container_name: order-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=pass
+      - MYSQL_USERNAME=root
+      - MYSQL_PASSWORD=pass
+      - MYSQL_DATABASE=order
+      - MYSQL_ROOT_HOST=%
+    ports:
+      - '3307:3306'
+    volumes:
+      - ./order/db:/docker-entrypoint-initdb.d
 
-#  restaurant:
-#    build: ./restaurant
-#    container_name: restaurant
-#    depends_on:
-#      - restaurant-db
-#    environment:
-#      - MYSQL_HOST=restaurant-db
-#      - MYSQL_USER=root
-#      - MYSQL_PASS=pass
-#      - MYSQL_DATABASE=restaurant
-#    ports:
-#      - '8080:8080'
-#    restart: unless-stopped
+  restaurant:
+    build: ./restaurant
+    container_name: restaurant
+    depends_on:
+      - restaurant-db
+    environment:
+      - MYSQL_HOST=restaurant-db
+      - MYSQL_USER=root
+      - MYSQL_PASS=pass
+      - MYSQL_DATABASE=restaurant
+    ports:
+      - '8080:8080'
+    restart: unless-stopped
 
   restaurant-db:
     image: mysql:8.0
