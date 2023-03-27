@@ -27,6 +27,9 @@ public class OrderController {
     public ResponseEntity placeOrder(@RequestBody @Valid OrderDto order) {
         Orders orders = orderConverter.to(order);
         StatusDto statusDto = orderService.placeOrder(orders);
+        if (statusDto.getError()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(statusDto);
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(statusDto);
     }
 }

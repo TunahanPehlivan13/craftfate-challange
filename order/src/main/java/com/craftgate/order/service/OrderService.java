@@ -21,7 +21,7 @@ public class OrderService {
 
         for (OrderStepHandler orderStepHandler : orderStepHandlers) {
             try {
-                log.info("{} will be started for order-id={}", orders.getClass().getName(), orders.getId());
+                log.info("{} will be started for restaurant-id={}", orderStepHandler.getClass().getName(), orders.getRestaurantId());
                 orderStepHandler.process(orders);
             } catch (PaymentValidationException pve) {
                 return pve.getStatusDto();
