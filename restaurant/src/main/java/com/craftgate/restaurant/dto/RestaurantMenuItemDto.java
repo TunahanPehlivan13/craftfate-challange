@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 public class RestaurantMenuItemDto {
 
     private String menuItemName;
+    private Long menuItemId;
     private BigDecimal price;
     private Boolean available;
 }

@@ -1,20 +1,6 @@
 version: "3.8"
 
 services:
-#  order:
-#    build: ./order
-#    container_name: order
-#    depends_on:
-#      - order-db
-#    environment:
-#      - MYSQL_HOST=order-db
-#      - MYSQL_USER=root
-#      - MYSQL_PASS=pass
-#      - MYSQL_DATABASE=order
-#    ports:
-#      - '8080:8080'
-#    restart: unless-stopped
-
   order-db:
     image: mysql:8.0
     container_name: order-db
@@ -28,20 +14,6 @@ services:
       - '3307:3306'
     volumes:
       - ./order/db:/docker-entrypoint-initdb.d
-
-  restaurant:
-    build: ./restaurant
-    container_name: restaurant
-    depends_on:
-      - restaurant-db
-    environment:
-      - MYSQL_HOST=restaurant-db
-      - MYSQL_USER=root
-      - MYSQL_PASS=pass
-      - MYSQL_DATABASE=restaurant
-    ports:
-      - '8080:8080'
-    restart: unless-stopped
 
   restaurant-db:
     image: mysql:8.0

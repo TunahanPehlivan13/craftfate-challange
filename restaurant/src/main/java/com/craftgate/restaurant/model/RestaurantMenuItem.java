@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 public class RestaurantMenuItem {
 
     private String menuItemName;
+    private Long menuItemId;
     private BigDecimal defaultPrice;
     private BigDecimal restaurantSpecificPrice;
     private Boolean available;

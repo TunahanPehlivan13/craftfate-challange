@@ -14,6 +14,7 @@ public class RestaurantMenuItemConverter {
     public RestaurantMenuItemDto to(RestaurantMenuItem restaurantMenuItem) {
         RestaurantMenuItemDto restaurantMenuItemDto = new RestaurantMenuItemDto();
         restaurantMenuItemDto.setMenuItemName(restaurantMenuItem.getMenuItemName());
+        restaurantMenuItemDto.setMenuItemId(restaurantMenuItem.getMenuItemId());
 
         Boolean available = restaurantMenuItem.getAvailable() == null ? Boolean.TRUE : restaurantMenuItem.getAvailable();
         restaurantMenuItemDto.setAvailable(available);
